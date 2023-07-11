@@ -1,16 +1,16 @@
 package com.hibernate.assignment2.service.implementation;
 
-import com.hibernate.assignment2.entities.Player;
 import com.hibernate.assignment2.entities.Team;
 import com.hibernate.assignment2.exception.TeamNotFound;
+import com.hibernate.assignment2.repository.PlayerRepository;
 import com.hibernate.assignment2.repository.TeamRepository;
 import com.hibernate.assignment2.service.TeamService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 public class TeamServiceImplementation implements TeamService {
@@ -18,10 +18,17 @@ public class TeamServiceImplementation implements TeamService {
   @Autowired
   TeamRepository teamRepository;
 
+  @Autowired
+  PlayerRepository playerRepository;
+
   @Override
   public List<Team> getAllTeams() {
     return teamRepository.findAll();
   }
+
+//  public Team getTeamByTeamName(String teamName){
+//    return teamRepository.getTeamByTeamName(teamName);
+//  }
 
   @Override
   public Team getTeamWithId(int id) {
@@ -38,17 +45,11 @@ public class TeamServiceImplementation implements TeamService {
   public Team createTeam(Team team) {
 
     if (team != null) {
-      List<Player> player = team.getPlayers();
-      List<Player> collect = player.stream().map(i -> {
-        i.setTeam(team);
-        return i;
-      }).collect(Collectors.toList());
-      team.setPlayers(collect);
+       team.getPlayers().forEach(player -> player.setTeam(team));
       return teamRepository.save(team);
     } else {
       throw new TeamNotFound("failed to create team please enter valid details");
     }
-
   }
 
   @Override
@@ -58,6 +59,7 @@ public class TeamServiceImplementation implements TeamService {
     if (team1 == null) {
       throw new TeamNotFound("team not found");
     } else {
+//      team.getPlayers().forEach(player -> player.setTeam(team));
       team.setTeamId(id);
     }
     return teamRepository.save(team);

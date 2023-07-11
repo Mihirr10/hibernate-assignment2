@@ -1,6 +1,5 @@
 package com.hibernate.assignment2.controller;
 
-import com.hibernate.assignment2.dto.PlayerDto;
 import com.hibernate.assignment2.entities.Player;
 import com.hibernate.assignment2.service.PlayerService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,10 +16,10 @@ public class PlayerController {
   @Autowired
   PlayerService playerService;
 
-  @GetMapping
-  public List<PlayerDto> getPlayerWithTeam() {
-    return playerService.getPlayerWithTeam();
-  }
+//  @GetMapping
+//  public List<PlayerDto> getPlayerWithTeam() {
+//    return playerService.getPlayerWithTeam();
+//  }
 
   @GetMapping("/{id}")
   public ResponseEntity<Player> getPlayerWithId(@PathVariable int id) {
@@ -28,12 +27,18 @@ public class PlayerController {
     return new ResponseEntity<>(playerWithId, HttpStatus.FOUND);
   }
 
-
-//  @GetMapping
-//  public ResponseEntity<List<Player>> getAllPlayers() {
-//    List<Player> players = playerService.getAllPlayers();
-//    return new ResponseEntity<>(players, HttpStatus.FOUND);
+//  @GetMapping("/{playerName}")
+//  public ResponseEntity<Player> getPlayerWithName(@PathVariable String playerName){
+//    Player playerByPlayerName = playerService.getPlayerByPlayerName(playerName);
+//    return new ResponseEntity<>(playerByPlayerName,HttpStatus.FOUND);
 //  }
+
+
+  @GetMapping
+  public ResponseEntity<List<Player>> getAllPlayers() {
+    List<Player> players = playerService.getAllPlayers();
+    return new ResponseEntity<>(players, HttpStatus.FOUND);
+  }
 
   @PostMapping
   public ResponseEntity<Player> createPlayer(@RequestBody Player player) {

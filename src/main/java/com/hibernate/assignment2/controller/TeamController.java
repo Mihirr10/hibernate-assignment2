@@ -23,6 +23,7 @@ public class TeamController {
     return new ResponseEntity<>(teams, HttpStatus.FOUND);
   }
 
+
   @PostMapping
   public ResponseEntity<Team> createTeam(@RequestBody Team team) {
     Team team1 = teamService.createTeam(team);

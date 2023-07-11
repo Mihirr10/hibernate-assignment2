@@ -21,10 +21,16 @@ public class PlayerServiceImplementation implements PlayerService {
   public PlayerServiceImplementation(PlayerRepository playerRepository) {
     this.playerRepository = playerRepository;
   }
+//
+//  @Override
+//  public Player getPlayerByPlayerName(String playerName) {
+//    return playerRepository.findByPlayerName(playerName);
+//  }
 
-  public List<PlayerDto> getPlayerWithTeam() {
-    return playerRepository.findAll().stream().map(p -> new PlayerDto(p.getPlayerName(), p.getTeam().getTeamName())).collect(Collectors.toList());
-  }
+
+//  public List<PlayerDto> getPlayerWithTeam() {
+//    return playerRepository.findAll().stream().map(p -> new PlayerDto(p.getPlayerName(), p.getTeam().getTeamName())).collect(Collectors.toList());
+//  }
 
 
   public List<Player> getAllPlayers() {

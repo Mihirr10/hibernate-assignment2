@@ -1,7 +1,8 @@
 package com.hibernate.assignment2.entities;
 
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -23,7 +24,6 @@ public class Team {
   private int teamId;
   private String teamName;
 
-  @OneToMany(cascade = CascadeType.ALL, mappedBy = "team")
-  @JsonIgnore
+  @OneToMany(mappedBy = "team",cascade = CascadeType.ALL)
   private List<Player> players;
 }

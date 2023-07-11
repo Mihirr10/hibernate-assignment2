@@ -7,7 +7,9 @@ import java.util.List;
 
 public interface PlayerService {
 
-  public List<PlayerDto> getPlayerWithTeam();
+//  public Player getPlayerByPlayerName(String playerName);
+//
+//  public List<PlayerDto> getPlayerWithTeam();
 
   public List<Player> getAllPlayers();
 
